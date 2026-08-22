@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>एम्ब्रेस भारत फाउंडेशन | समुदायों का सशक्तिकरण</title>
+    <link rel="icon" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables & Reset */
+        :root {
+            --primary-saffron: #E37032;
+            --primary-green: #2B7A4B;
+            --primary-navy: #1C2841;
+            --bg-light: #FBF9F6;
+            --text-dark: #333333;
+            --text-muted: #666666;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-navy);
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-saffron);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(227, 112, 50, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #c95c24;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary-saffron);
+            color: var(--primary-saffron);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-saffron);
+            color: var(--white);
+        }
+
+        /* Top Bar & Snappy Language Toggle */
+        .top-bar {
+            background: var(--primary-navy);
+            color: var(--white);
+            font-size: 13px;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            letter-spacing: 0.5px;
+        }
+
+        .lang-toggle-btn {
+            background: linear-gradient(135deg, var(--primary-saffron), #c95c24);
+            color: var(--white);
+            border: none;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+            box-shadow: 0 4px 10px rgba(227, 112, 50, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .lang-toggle-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(227, 112, 50, 0.5);
+        }
+
+        .lang-toggle-btn:active {
+            transform: translateY(1px) scale(0.95);
+            box-shadow: 0 2px 5px rgba(227, 112, 50, 0.4);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-img { max-height: 110px; width: auto; object-fit: contain; }
+        .logo-text h2 { font-size: 20px; margin: 0; line-height: 1.2; color: var(--primary-navy); }
+        .logo-text span { font-size: 21px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        
+        .nav-toggle {
+            display: none; background: none; border: none; cursor: pointer;
+            padding: 6px; flex-direction: column; gap: 5px;
+        }
+        .nav-toggle span {
+            display: block; width: 26px; height: 2.5px; background: var(--primary-navy);
+            border-radius: 2px; transition: all 0.25s ease;
+        }
+        .nav-toggle.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; }
+        .nav-toggle.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+        .nav-links a { font-weight: 500; font-size: 15px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary-saffron); }
+
+        /* Trust Strip */
+        .trust-strip { background: var(--white); border-bottom: 1px solid #EDEAE4; padding: 22px 0; }
+        .trust-strip .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 34px; }
+        .trust-badge { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--text-muted); font-weight: 500; }
+        .trust-badge strong { color: var(--primary-navy); font-weight: 700; }
+        .trust-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--primary-green); flex-shrink: 0; }
+
+        /* Image Slider */
+        .slider-section { position: relative; background: linear-gradient(135deg, #1C2841 0%, #0d121c 100%); padding: 30px 0; overflow: hidden; }
+        .slide { display: none; justify-content: center; align-items: center; height: 75vh; animation: fade 0.8s; }
+        .slide img { max-width: 95%; max-height: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border-radius: 8px; object-fit: contain; }
+        .prev, .next { cursor: pointer; position: absolute; top: 50%; padding: 16px; margin-top: -22px; color: white; font-weight: bold; font-size: 24px; transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none; background-color: rgba(0,0,0,0.4); border: none; }
+        .next { right: 0; border-radius: 3px 0 0 3px; }
+        .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
+        .slider-dots { text-align: center; padding: 20px 0 0; }
+        .slider-dot { cursor: pointer; height: 12px; width: 12px; margin: 0 5px; background-color: #717171; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
+        .slider-dot.active, .slider-dot:hover { background-color: var(--primary-saffron); }
+        @keyframes fade { from {opacity: .4} to {opacity: 1} }
+
+        /* Vision & Quote */
+        .vision-section { padding: 80px 0; background: var(--white); text-align: center; }
+        .quote-box { max-width: 800px; margin: 0 auto; }
+        .quote-icon { color: var(--primary-saffron); font-size: 40px; margin-bottom: 20px; font-family: 'Merriweather', serif; }
+        .quote-box blockquote { font-family: 'Merriweather', serif; font-size: 24px; color: var(--primary-navy); line-height: 1.6; margin-bottom: 20px; font-style: italic; }
+        .quote-box cite { font-size: 16px; color: var(--text-muted); font-weight: 600; }
+
+        /* 15 Projects */
+        .programs { padding: 90px 0; background: var(--bg-light); }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-label { color: var(--primary-saffron); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 13px; margin-bottom: 10px; display: block; }
+        .section-title { font-size: 36px; margin-bottom: 20px; }
+        
+        .grid-projects { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        .project-card { background: var(--white); border-radius: 8px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 4px solid var(--primary-saffron); transition: transform 0.3s ease; }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .project-number { background: var(--primary-saffron); color: white; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; margin-bottom: 15px; font-size: 14px; }
+        .project-card h4 { color: var(--primary-navy); font-size: 16px; margin-bottom: 15px; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.5px; }
+        .project-card ul { list-style-type: none; padding-left: 0; font-size: 13.5px; color: var(--text-muted); }
+        .project-card ul li { margin-bottom: 8px; position: relative; padding-left: 18px; }
+        .project-card ul li::before { content: "•"; color: var(--primary-green); font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; position: absolute; left: 5px; }
+
+        /* Awards Section */
+        .awards-section { padding: 90px 0; background: var(--primary-navy); color: var(--white); }
+        .awards-section .section-title { color: var(--white); }
+        .awards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .awards-text p { font-size: 16px; color: #d1d5db; margin-bottom: 25px; }
+        .awards-list { list-style: none; margin-top: 30px; }
+        .awards-list li { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
+        .check-icon { background: var(--primary-saffron); color: var(--white); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; margin-top: 3px; }
+        .awards-img { width: 100%; height: 400px; object-fit: cover; border-radius: 12px; border: 4px solid rgba(255,255,255,0.1); }
+
+        /* Transparency */
+        .financials-grid { display: grid; grid-template-columns: 1fr; gap: 50px; align-items: start; }
+        .financial-docs { background: var(--bg-light); border-radius: 14px; padding: 28px; }
+        .reg-detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 24px; margin-top: 26px; padding-top: 22px; border-top: 1px solid #E5E2DB; }
+        .reg-detail-grid div span { display: block; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-muted); margin-bottom: 3px; }
+        .reg-detail-grid div strong { font-size: 13.5px; color: var(--primary-navy); }
+
+        /* Forms & Inputs */
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--primary-navy); margin-bottom: 8px; }
+        .form-control { width: 100%; padding: 12px 15px; border: 1px solid #D1D5DB; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 14px; background-color: #fff; transition: border-color 0.3s; }
+        .form-control:focus { border-color: var(--primary-saffron); outline: none; }
+        textarea.form-control { resize: vertical; min-height: 120px; }
+
+        /* Contact Section */
+        .contact-section { padding: 80px 0; background: var(--white); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .contact-info-box { background: var(--primary-navy); color: white; padding: 40px; border-radius: 12px; }
+        .contact-info-box h3 { color: white; margin-bottom: 20px; }
+        .contact-detail { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; }
+        .contact-icon { font-size: 20px; color: var(--primary-saffron); }
+
+        /* Modals */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center;
+            backdrop-filter: blur(3px);
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: var(--white); padding: 40px; border-radius: 12px; width: 90%; max-width: 550px;
+            position: relative; animation: slideIn 0.3s ease-out; max-height: 90vh; overflow-y: auto;
+        }
+        .modal-close {
+            position: absolute; top: 20px; right: 20px; font-size: 28px; cursor: pointer; 
+            color: var(--text-muted); border: none; background: none; line-height: 1;
+        }
+        .modal-close:hover { color: var(--primary-navy); }
+        .modal-header { text-align: center; margin-bottom: 25px; }
+        .modal-header h3 { font-size: 24px; margin-bottom: 8px; }
+        .modal-header p { font-size: 14px; color: var(--text-muted); }
+        
+        @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* Footer */
+        footer { background: #111827; color: #9CA3AF; padding: 70px 0 30px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+        .footer-brand .logo-text h2 { color: var(--white); }
+        .footer-brand p { margin-top: 20px; font-size: 14px; }
+        .footer-links h4 { color: var(--white); font-size: 16px; margin-bottom: 20px; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { font-size: 14px; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--primary-saffron); }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; }
+        .footer-reg-line { font-size: 12.5px; color: #8991A4; margin-top: 15px; line-height: 1.7; }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .awards-grid, .contact-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .reg-detail-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .top-bar { flex-direction: column; gap: 10px; padding: 12px 5%; text-align: center; }
+            .nav-toggle { display: flex; }
+            .nav-links {
+                display: none; position: absolute; top: 80px; left: 0; right: 0;
+                background: var(--white); flex-direction: column; align-items: stretch; gap: 0;
+                box-shadow: 0 12px 20px rgba(0,0,0,0.08); padding: 10px 0 18px;
+            }
+            .nav-links.mobile-open { display: flex; }
+            .nav-links a, .nav-links button { padding: 14px 6%; width: 100%; text-align: left; }
+            .nav-links .btn-primary { width: 88%; margin: 10px 6% 0; text-align: center; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .slide { height: 50vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <span>पंजीकृत गैर-लाभकारी ट्रस्ट (भारत सरकार) | पारदर्शिता और समर्पण के साथ राष्ट्र की सेवा</span>
+        
+        <!-- Linking back to the English File -->
+        <a href="index.html" class="lang-toggle-btn" style="text-decoration: none;">
+            <span style="font-size: 16px;">A</span> English
+        </a>
+    </div>
+
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="Logo_Transparent.png" alt="एम्ब्रेस भारत फाउंडेशन लोगो" class="logo-img" onerror="this.style.display='none'">
+                <div class="logo-text">
+                    <h2>एम्ब्रेस भारत</h2>
+                    <span>फाउंडेशन</span>
+                </div>
+            </a>
+            <button type="button" class="nav-toggle" id="navToggle" onclick="toggleMobileNav()" aria-label="मेनू खोलें">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="#projects">हमारा प्रभाव</a>
+                <a href="#awards">मान्यता</a>
+                <a href="#financials">पारदर्शिता</a>
+                <a href="#contact">संपर्क करें</a>
+                <button class="btn btn-primary" onclick="openModal('donateModal')">दान करें</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="trust-strip">
+        <div class="container">
+            <div class="trust-badge"><span class="dot"></span> <strong>ट्रस्ट नं.</strong>&nbsp;0001185835</div>
+            <div class="trust-badge"><span class="dot"></span> <strong>एनजीओ दर्पण आईडी</strong>&nbsp;UP/2026/1170451</div>
+        </div>
+    </div>
+
+    <section class="slider-section">
+        <div class="slider-container" id="mainSlider">
+            <div class="slide fade"><img src="Main Image.jpeg" alt="एम्ब्रेस भारत फाउंडेशन - 15 प्रभावशाली परियोजनाएं"></div>
+            <div class="slide fade"><img src="img2.jpeg" alt="हम सब मिलकर एक बेहतर भारत का निर्माण कर सकते हैं"></div>
+            <div class="slide fade"><img src="img3.jpeg" alt="एम्ब्रेस भारत फाउंडेशन के उद्देश्य"></div>
+            <div class="slide fade"><img src="img4.jpeg" alt="नारी सशक्तिकरण - महिला सशक्तिकरण"></div>
+        </div>
+        <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+        <button class="next" onclick="plusSlides(1)">&#10095;</button>
+        <div class="slider-dots">
+            <span class="slider-dot" onclick="currentSlide(1)"></span>
+            <span class="slider-dot" onclick="currentSlide(2)"></span>
+            <span class="slider-dot" onclick="currentSlide(3)"></span>
+            <span class="slider-dot" onclick="currentSlide(4)"></span>
+        </div>
+    </section>
+
+    <section id="mission" class="vision-section">
+        <div class="container">
+            <div class="quote-box">
+                <div class="quote-icon">❝</div>
+                <blockquote>
+                    "उठो, जागो और तब तक मत रुको जब तक लक्ष्य प्राप्त न हो जाए। वास्तविक राष्ट्र निर्माण तब शुरू होता है जब सबसे दूरस्थ गाँव का अंतिम बच्चा भी शिक्षा प्राप्त करता है, और जब निराश्रितों की सेवा करने वालों को हमारे सबसे महान नायकों के रूप में मनाया जाता है।"
+                </blockquote>
+                <cite>— एम्ब्रेस भारत फाउंडेशन का मुख्य दर्शन</cite>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="programs">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">लोगों को सशक्त बनाना, जीवन को समृद्ध करना, भारत को मजबूत बनाना</span>
+                <h2 class="section-title">15 प्रभावशाली परियोजनाएं</h2>
+            </div>
+            <div class="grid-projects">
+                <div class="project-card"><div class="project-number">1</div><h4>टैलेंट हंट और छात्रवृत्ति परियोजना</h4><ul><li>क्विज, टैलेंट हंट, मेरिट टेस्ट</li><li>योग्य और जरूरतमंद छात्रों के लिए छात्रवृत्ति</li></ul></div>
+                <div class="project-card"><div class="project-number">2</div><h4>स्कूल व्यक्तित्व विकास कार्यक्रम</h4><ul><li>व्यक्तित्व विकास</li><li>संचार कौशल (Communication Skills)</li><li>नेतृत्व और आत्मविश्वास निर्माण</li></ul></div>
+                <div class="project-card"><div class="project-number">3</div><h4>स्किल इंडिया - कौशल विकास परियोजना</h4><ul><li>कंप्यूटर, डिजिटल साक्षरता, स्पोकन इंग्लिश</li><li>सिलाई, ब्यूटीशियन, मेहंदी और बहुत कुछ</li><li>व्यावसायिक और रोजगार उन्मुख प्रशिक्षण</li></ul></div>
+                <div class="project-card"><div class="project-number">4</div><h4>सशक्त नारी - महिला सशक्तिकरण</h4><ul><li>व्यावसायिक प्रशिक्षण</li><li>स्व-रोजगार और उद्यमिता</li><li>डिजिटल और वित्तीय साक्षरता</li></ul></div>
+                <div class="project-card"><div class="project-number">5</div><h4>युवा करियर और रोजगार परियोजना</h4><ul><li>करियर काउंसलिंग</li><li>रिज्यूमे और साक्षात्कार प्रशिक्षण</li><li>रोजगार और प्लेसमेंट सहायता</li></ul></div>
+                <div class="project-card"><div class="project-number">6</div><h4>डिजिटल साक्षरता अभियान</h4><ul><li>स्मार्टफोन और इंटरनेट प्रशिक्षण</li><li>ऑनलाइन सेवाएं और सुरक्षा</li><li>सभी के लिए डिजिटल सशक्तिकरण</li></ul></div>
+                <div class="project-card"><div class="project-number">7</div><h4>बेटी शिक्षा और बाल विकास परियोजना</h4><ul><li>लड़कियों के लिए शिक्षा सहायता</li><li>जीवन कौशल और करियर मार्गदर्शन</li><li>सभी के लिए शिक्षा को बढ़ावा देना</li></ul></div>
+                <div class="project-card"><div class="project-number">8</div><h4>हरित भारत - पर्यावरण परियोजना</h4><ul><li>वृक्षारोपण अभियान</li><li>स्वच्छता अभियान</li><li>कचरा प्रबंधन और पर्यावरण जागरूकता</li></ul></div>
+                <div class="project-card"><div class="project-number">9</div><h4>स्वस्थ भारत जागरूकता परियोजना</h4><ul><li>स्वास्थ्य और स्वच्छता जागरूकता</li><li>पोषण और स्वच्छता</li><li>स्वास्थ्य शिविर और चेक-अप</li></ul></div>
+                <div class="project-card"><div class="project-number">10</div><h4>जन सेवा और सामुदायिक सहायता परियोजना</h4><ul><li>जरूरतमंद परिवारों के लिए सहायता</li><li>भोजन वितरण और राहत कार्य</li><li>सामुदायिक सेवा गतिविधियाँ</li></ul></div>
+                <div class="project-card"><div class="project-number">11</div><h4>ग्रामीण विकास परियोजना</h4><ul><li>शिक्षा और कौशल प्रशिक्षण</li><li>आजीविका सहायता</li><li>जागरूकता और सामुदायिक उत्थान</li></ul></div>
+                <div class="project-card"><div class="project-number">12</div><h4>पशु कल्याण परियोजना</h4><ul><li>पशु आहार अभियान</li><li>पशु बचाव और देखभाल</li><li>पशु कल्याण जागरूकता</li></ul></div>
+                <div class="project-card"><div class="project-number">13</div><h4>वरिष्ठ नागरिक सहायता परियोजना</h4><ul><li>देखभाल, सहायता और सम्मान</li><li>स्वास्थ्य जागरूकता और सहायता</li><li>भावनात्मक और सामाजिक समर्थन</li></ul></div>
+                <div class="project-card"><div class="project-number">14</div><h4>सामाजिक जागरूकता अभियान</h4><ul><li>महिला सुरक्षा, बाल संरक्षण</li><li>स्वच्छता, शिक्षा, स्वास्थ्य</li><li>साइबर सुरक्षा और कानूनी जागरूकता</li></ul></div>
+                <div class="project-card"><div class="project-number">15</div><h4>स्वयंसेवक और सामाजिक नेतृत्व कार्यक्रम</h4><ul><li>स्वयंसेवक प्रशिक्षण</li><li>सामुदायिक सेवा</li><li>नेतृत्व और राष्ट्र निर्माण</li></ul></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="awards" class="awards-section">
+        <div class="container awards-grid">
+            <div class="awards-text">
+                <span class="section-label" style="color: #FBBF24;">प्रतिभा सम्मान पुरस्कार</span>
+                <h2 class="section-title">निस्वार्थ सेवा की भावना का जश्न</h2>
+                <p>सामाजिक कार्य अक्सर एक धन्यवाद रहित कार्य होता है। एम्ब्रेस भारत फाउंडेशन में हमारा मानना ​​है कि जो लोग अपना जीवन समाज कल्याण के लिए समर्पित करते हैं, उन्हें पहचानना एक दयालु समाज को बनाए रखने के लिए महत्वपूर्ण है।</p>
+                
+                <ul class="awards-list">
+                    <li><div class="check-icon">✓</div><div><strong>उत्कृष्टता प्रमाण पत्र (Certificates of Excellence)</strong><br><span style="font-size: 13px; color: #9CA3AF;">असाधारण सामुदायिक उत्थान के लिए स्थानीय नेताओं और शिक्षकों को सम्मानित किया जाता है।</span></div></li>
+                    <li><div class="check-icon">✓</div><div><strong>द एम्ब्रेस भारत मेडल</strong><br><span style="font-size: 13px; color: #9CA3AF;">आपदा राहत के दौरान असाधारण बहादुरी और समर्पण दिखाने वालों को यह पदक प्रदान किया जाता है।</span></div></li>
+                    <li><div class="check-icon">✓</div><div><strong>युवा कल्याण छात्रवृत्ति</strong><br><span style="font-size: 13px; color: #9CA3AF;">तकनीक-आधारित सामाजिक नवाचारों का नेतृत्व करने वाले युवा वयस्कों के लिए प्रमाण पत्र के साथ अनुदान।</span></div></li>
+                </ul>
+                <button class="btn btn-primary" style="margin-top: 15px; background-color: #FBBF24; color: var(--primary-navy);" onclick="openModal('nominateModal')">हीरो को नामांकित करें</button>
+            </div>
+            <div class="awards-image">
+                <img src="Community members.png" alt="भारत में सामुदायिक सेवा करते हुए लोग" class="awards-img" onerror="this.style.display='none'">
+            </div>
+        </div>
+    </section>
+
+    <section id="financials" class="programs" style="background: var(--white); padding-bottom: 40px;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">जवाबदेही</span>
+                <h2 class="section-title">संस्थागत पारदर्शिता</h2>
+            </div>
+            <div class="financials-grid">
+                <div class="financial-docs">
+                    <h4>पंजीकरण विवरण (Registration Details)</h4>
+                    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">हम पूर्ण संस्थागत पारदर्शिता सुनिश्चित करने के लिए सभी सरकारी दिशानिर्देशों का सख्ती से पालन करते हैं।</p>
+                    <div class="reg-detail-grid">
+                        <div><span>ट्रस्ट पंजीकरण संख्या</span><strong>0001185835</strong></div>
+                        <div><span>एनजीओ दर्पण आईडी</span><strong>UP/2026/1170451</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">संपर्क में रहें</span>
+                <h2 class="section-title">हमसे संपर्क करें</h2>
+            </div>
+            
+            <div class="contact-grid">
+                <!-- Left: Contact Info -->
+                <div class="contact-info-box">
+                    <h3>हमें आपसे सुनना अच्छा लगेगा</h3>
+                    <p style="color: #cbd5e1; margin-bottom: 30px; font-size: 15px;">चाहे आपको हमारी परियोजनाओं के बारे में कोई प्रश्न पूछना हो, स्वयंसेवक बनना हो, या बस नमस्ते कहना हो, हमारी टीम आपके सभी सवालों के जवाब देने के लिए तैयार है।</p>
+                    
+                    <div class="contact-detail">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong style="display: block; font-size: 16px; margin-bottom: 5px;">मुख्यालय</strong>
+                            <span style="color: #cbd5e1; font-size: 14px;">लखीमपुर खीरी, उत्तर प्रदेश, भारत</span>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <strong style="display: block; font-size: 16px; margin-bottom: 5px;">हमें ईमेल करें</strong>
+                            <a href="mailto:embracebharatfoundation@gmail.com" style="color: #cbd5e1; font-size: 14px; transition: color 0.3s;">embracebharatfoundation@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <strong style="display: block; font-size: 16px; margin-bottom: 5px;">हमें कॉल करें</strong>
+                            <span style="color: #cbd5e1; font-size: 14px;">+91 92141 23795 <br> +91 63068 63962</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Contact Form -->
+                <div class="contact-form-container">
+                    <form action="https://formsubmit.co/embracebharatfoundation@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="New Contact Form Submission (Hindi)">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://yourwebsite.com/thanks.html">
+                        
+                        <div class="form-group">
+                            <label class="form-label">पूरा नाम (Full Name)</label>
+                            <input type="text" name="Name" class="form-control" required placeholder="अपना पूरा नाम दर्ज करें">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">ईमेल पता (Email Address)</label>
+                            <input type="email" name="Email" class="form-control" required placeholder="अपना ईमेल दर्ज करें">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">संपर्क का उद्देश्य</label>
+                            <select name="Purpose" class="form-control" required>
+                                <option value="" disabled selected>एक विकल्प चुनें...</option>
+                                <option value="General Inquiry">सामान्य पूछताछ</option>
+                                <option value="Volunteer Registration">स्वयंसेवक पंजीकरण</option>
+                                <option value="Partnership / CSR">साझेदारी / सीएसआर (CSR)</option>
+                                <option value="Media & PR">मीडिया और पीआर (Media & PR)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">आपका संदेश (Your Message)</label>
+                            <textarea name="Message" class="form-control" required placeholder="हम आपकी कैसे मदद कर सकते हैं?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">संदेश भेजें</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-text" style="margin-top: 5px;">
+                        <h2>एम्ब्रेस भारत फाउंडेशन</h2>
+                    </div>
+                    <p>शिक्षा, कौशल विकास और सांस्कृतिक मान्यता के प्रतिच्छेदन पर काम करते हुए एक मजबूत और निष्पक्ष भारत का निर्माण - एक समय में एक व्यक्ति।</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>त्वरित लिंक (Quick Links)</h4>
+                    <ul>
+                        <li><a href="#mission">हमारे बारे में</a></li>
+                        <li><a href="#projects">हमारा प्रभाव (15 प्रोजेक्ट्स)</a></li>
+                        <li><a href="#awards">पुरस्कार गैलरी</a></li>
+                        <li><a href="#financials">पारदर्शिता</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>कार्रवाइयां (Actions)</h4>
+                    <ul>
+                        <li><a href="javascript:void(0);" onclick="openModal('donateModal')">दान करें</a></li>
+                        <li><a href="javascript:void(0);" onclick="openModal('nominateModal')">हीरो को नामांकित करें</a></li>
+                        <li><a href="#contact">संपर्क सहायता</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 एम्ब्रेस भारत फाउंडेशन। सर्वाधिकार सुरक्षित। | भारतीय न्यास अधिनियम, 1882 के तहत पंजीकृत।</p>
+                <p class="footer-reg-line">ट्रस्ट पंजीकरण संख्या 0001185835 &nbsp;|&nbsp; एनजीओ दर्पण आईडी: UP/2026/1170451</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODALS SECTION -->
+    <div class="modal-overlay" id="donateModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('donateModal')">&times;</button>
+            <div class="modal-header">
+                <h3 style="font-family: 'Merriweather', serif; color: var(--primary-navy);">अपना समर्थन दें (Donate)</h3>
+                <p>नीचे दिया गया फॉर्म भरें और हमारी टीम आपके दान को सुरक्षित रूप से प्रोसेस करने के लिए आपसे संपर्क करेगी।</p>
+            </div>
+            <form action="https://formsubmit.co/embracebharatfoundation@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New Donation Pledge (Hindi)">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <div class="form-group">
+                    <label class="form-label">पूरा नाम (Full Name)</label>
+                    <input type="text" name="Donor_Name" class="form-control" required placeholder="आपका पूरा नाम">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">ईमेल पता (Email Address)</label>
+                    <input type="email" name="Donor_Email" class="form-control" required placeholder="आपका ईमेल पता">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">फोन नंबर (Phone Number)</label>
+                    <input type="tel" name="Donor_Phone" class="form-control" required placeholder="आपका मोबाइल नंबर">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">समर्थन का कारण चुनें</label>
+                    <select name="Donation_Cause" class="form-control" required>
+                        <option value="General Foundation Fund" selected>सामान्य फाउंडेशन फंड (सबसे बड़ी आवश्यकता का क्षेत्र)</option>
+                        <option value="Education & Scholarships">शिक्षा और छात्रवृत्ति</option>
+                        <option value="Women Empowerment">महिला सशक्तिकरण</option>
+                        <option value="Animal Welfare">पशु कल्याण</option>
+                        <option value="Rural Development">ग्रामीण विकास</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">दान राशि (INR में)</label>
+                    <input type="number" name="Pledge_Amount" class="form-control" required placeholder="जैसे 5000">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">प्रतिज्ञा सबमिट करें</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="nominateModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('nominateModal')">&times;</button>
+            <div class="modal-header">
+                <h3 style="font-family: 'Merriweather', serif; color: var(--primary-navy);">हीरो को नामांकित करें</h3>
+                <p>उन लोगों को पहचानने में हमारी मदद करें जो चुपचाप दूसरों के कल्याण के लिए अपना जीवन समर्पित करते हैं।</p>
+            </div>
+            <form action="https://formsubmit.co/embracebharatfoundation@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New Pratibha Samman Nomination (Hindi)">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <div class="form-group">
+                    <label class="form-label">आपका नाम (नामांकनकर्ता)</label>
+                    <input type="text" name="Nominator_Name" class="form-control" required placeholder="अपना नाम दर्ज करें">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">आपका ईमेल</label>
+                    <input type="email" name="Nominator_Email" class="form-control" required placeholder="अपना ईमेल दर्ज करें">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">नामित व्यक्ति का पूरा नाम (Nominee)</label>
+                    <input type="text" name="Nominee_Name" class="form-control" required placeholder="उस व्यक्ति का नाम जिसे आप नामांकित कर रहे हैं">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">पुरस्कार श्रेणी (Award Category)</label>
+                    <select name="Award_Category" class="form-control" required>
+                        <option value="" disabled selected>एक पुरस्कार चुनें...</option>
+                        <option value="Certificate of Excellence">उत्कृष्टता प्रमाण पत्र (स्थानीय नेता/शिक्षक)</option>
+                        <option value="The Embrace Bharat Medal">द एम्ब्रेस भारत मेडल (बहादुरी/आपदा राहत)</option>
+                        <option value="Youth Welfare Scholarship">युवा कल्याण छात्रवृत्ति (युवा इनोवेटर्स)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">नामांकन का कारण</label>
+                    <textarea name="Reason" class="form-control" required placeholder="उनके प्रभाव का वर्णन करें और बताएं कि वे इस मान्यता के पात्र क्यों हैं..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">नामांकन सबमिट करें</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Slider Logic
+        let slideIndex = 1;
+        let slideTimer;
+
+        showSlides(slideIndex);
+        
+        function plusSlides(n) {
+            clearInterval(slideTimer);
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            clearInterval(slideTimer);
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("slider-dot");
+            
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex-1].style.display = "flex";  
+            dots[slideIndex-1].className += " active";
+            
+            slideTimer = setTimeout(() => { plusSlides(1); }, 4000); 
+        }
+
+        // Mobile Nav Logic
+        function toggleMobileNav() {
+            document.getElementById('navLinks').classList.toggle('mobile-open');
+            document.getElementById('navToggle').classList.toggle('open');
+        }
+
+        document.getElementById('navLinks').querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                document.getElementById('navLinks').classList.remove('mobile-open');
+                document.getElementById('navToggle').classList.remove('open');
+            });
+        });
+
+        // Modal Logic
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+</html>
