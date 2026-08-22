@@ -453,7 +453,7 @@
 
                 <!-- Right: Contact Form -->
                 <div class="contact-form-container">
-                    <form action="https://formsubmit.co/96ba88cb049a7351e70b7c03362b48d0" method="POST">
+                    <form id="contactForm" action="https://formsubmit.co/96ba88cb049a7351e70b7c03362b48d0" method="POST" onsubmit="submitForm(event, this.id)">
                         <input type="hidden" name="_subject" value="New Contact Form Submission">
                         <input type="hidden" name="_captcha" value="false">
                         
@@ -531,7 +531,7 @@
                 <h3 style="font-family: 'Merriweather', serif; color: var(--primary-navy);">Pledge Your Support</h3>
                 <p>Fill out the form below and our team will contact you securely for processing your donation.</p>
             </div>
-            <form action="https://formsubmit.co/96ba88cb049a7351e70b7c03362b48d0" method="POST">
+            <form id="donateForm" action="https://formsubmit.co/96ba88cb049a7351e70b7c03362b48d0" method="POST" onsubmit="submitForm(event, this.id)">
                 <input type="hidden" name="_subject" value="New Donation Pledge">
                 <input type="hidden" name="_captcha" value="false">
                 
@@ -573,7 +573,7 @@
                 <h3 style="font-family: 'Merriweather', serif; color: var(--primary-navy);">Nominate a Hero</h3>
                 <p>Help us recognize those who silently dedicate their lives to the welfare of others.</p>
             </div>
-            <form action="https://formsubmit.co/96ba88cb049a7351e70b7c03362b48d0" method="POST">
+            <form id="nominateForm" action="https://formsubmit.co/96ba88cb049a7351e70b7c03362b48d0" method="POST" onsubmit="submitForm(event, this.id)">
                 <input type="hidden" name="_subject" value="New Pratibha Samman Nomination">
                 <input type="hidden" name="_captcha" value="false">
                 
@@ -609,8 +609,6 @@
 
     <!-- Scripts -->
     <script>
-        
-
         // Slider Logic
         let slideIndex = 1;
         let slideTimer;
@@ -677,6 +675,48 @@
                 event.target.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
+        }
+
+        // Background Form Submission Logic (No Redirects)
+        function submitForm(event, formId) {
+            event.preventDefault(); 
+            
+            const form = document.getElementById(formId);
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            
+            submitBtn.innerText = "Submitting...";
+            submitBtn.disabled = true;
+
+            const ajaxUrl = form.action.replace("formsubmit.co/", "formsubmit.co/ajax/");
+
+            fetch(ajaxUrl, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json' 
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Your details have been submitted successfully. Our team will take 1-2 days to act upon it.");
+                form.reset(); 
+                
+                const modal = form.closest('.modal-overlay');
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert("Something went wrong. Please check your connection and try again.");
+            })
+            .finally(() => {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            });
         }
     </script>
 </body>
