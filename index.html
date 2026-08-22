@@ -37,16 +37,9 @@
             color: var(--primary-navy);
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+        a { text-decoration: none; color: inherit; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 5%;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
 
         .btn {
             display: inline-block;
@@ -57,6 +50,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             border: none;
+            text-align: center;
         }
 
         .btn-primary {
@@ -81,14 +75,44 @@
             color: var(--white);
         }
 
-        /* Top Bar */
+        /* Top Bar & Snappy Language Toggle */
         .top-bar {
             background: var(--primary-navy);
             color: var(--white);
             font-size: 13px;
-            padding: 8px 0;
-            text-align: center;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             letter-spacing: 0.5px;
+        }
+
+        .lang-toggle-btn {
+            background: linear-gradient(135deg, var(--primary-saffron), #c95c24);
+            color: var(--white);
+            border: none;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+            box-shadow: 0 4px 10px rgba(227, 112, 50, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .lang-toggle-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(227, 112, 50, 0.5);
+        }
+
+        .lang-toggle-btn:active {
+            transform: translateY(1px) scale(0.95);
+            box-shadow: 0 2px 5px rgba(227, 112, 50, 0.4);
         }
 
         /* Navigation */
@@ -107,411 +131,210 @@
             height: 80px;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-img { max-height: 110px; width: auto; object-fit: contain; }
+        .logo-text h2 { font-size: 20px; margin: 0; line-height: 1.2; color: var(--primary-navy); }
+        .logo-text span { font-size: 21px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
 
-        /* Updated Logo Styles */
-        .logo-img {
-            max-height: 110px;
-            width: auto;
-            object-fit: contain;
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        
+        .nav-toggle {
+            display: none; background: none; border: none; cursor: pointer;
+            padding: 6px; flex-direction: column; gap: 5px;
         }
-
-        .logo-text h2 {
-            font-size: 20px;
-            margin: 0;
-            line-height: 1.2;
-            color: var(--primary-navy);
+        .nav-toggle span {
+            display: block; width: 26px; height: 2.5px; background: var(--primary-navy);
+            border-radius: 2px; transition: all 0.25s ease;
         }
+        .nav-toggle.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; }
+        .nav-toggle.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
-        .logo-text span {
-            font-size: 21px;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            text-transform: uppercase;
+        .nav-links a { font-weight: 500; font-size: 15px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary-saffron); }
+
+        /* Trust Strip */
+        .trust-strip { background: var(--white); border-bottom: 1px solid #EDEAE4; padding: 22px 0; }
+        .trust-strip .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 34px; }
+        .trust-badge { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--text-muted); font-weight: 500; }
+        .trust-badge strong { color: var(--primary-navy); font-weight: 700; }
+        .trust-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--primary-green); flex-shrink: 0; }
+
+        /* Image Slider */
+        .slider-section { position: relative; background: linear-gradient(135deg, #1C2841 0%, #0d121c 100%); padding: 30px 0; overflow: hidden; }
+        .slide { display: none; justify-content: center; align-items: center; height: 75vh; animation: fade 0.8s; }
+        .slide img { max-width: 95%; max-height: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border-radius: 8px; object-fit: contain; }
+        .prev, .next { cursor: pointer; position: absolute; top: 50%; padding: 16px; margin-top: -22px; color: white; font-weight: bold; font-size: 24px; transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none; background-color: rgba(0,0,0,0.4); border: none; }
+        .next { right: 0; border-radius: 3px 0 0 3px; }
+        .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
+        .slider-dots { text-align: center; padding: 20px 0 0; }
+        .slider-dot { cursor: pointer; height: 12px; width: 12px; margin: 0 5px; background-color: #717171; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
+        .slider-dot.active, .slider-dot:hover { background-color: var(--primary-saffron); }
+        @keyframes fade { from {opacity: .4} to {opacity: 1} }
+
+        /* Vision & Quote */
+        .vision-section { padding: 80px 0; background: var(--white); text-align: center; }
+        .quote-box { max-width: 800px; margin: 0 auto; }
+        .quote-icon { color: var(--primary-saffron); font-size: 40px; margin-bottom: 20px; font-family: 'Merriweather', serif; }
+        .quote-box blockquote { font-family: 'Merriweather', serif; font-size: 24px; color: var(--primary-navy); line-height: 1.6; margin-bottom: 20px; font-style: italic; }
+        .quote-box cite { font-size: 16px; color: var(--text-muted); font-weight: 600; }
+
+        /* 15 Projects */
+        .programs { padding: 90px 0; background: var(--bg-light); }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-label { color: var(--primary-saffron); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 13px; margin-bottom: 10px; display: block; }
+        .section-title { font-size: 36px; margin-bottom: 20px; }
+        
+        .grid-projects { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        .project-card { background: var(--white); border-radius: 8px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 4px solid var(--primary-saffron); transition: transform 0.3s ease; }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .project-number { background: var(--primary-saffron); color: white; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; margin-bottom: 15px; font-size: 14px; }
+        .project-card h4 { color: var(--primary-navy); font-size: 16px; margin-bottom: 15px; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.5px; }
+        .project-card ul { list-style-type: none; padding-left: 0; font-size: 13.5px; color: var(--text-muted); }
+        .project-card ul li { margin-bottom: 8px; position: relative; padding-left: 18px; }
+        .project-card ul li::before { content: "•"; color: var(--primary-green); font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; position: absolute; left: 5px; }
+
+        /* Awards Section */
+        .awards-section { padding: 90px 0; background: var(--primary-navy); color: var(--white); }
+        .awards-section .section-title { color: var(--white); }
+        .awards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .awards-text p { font-size: 16px; color: #d1d5db; margin-bottom: 25px; }
+        .awards-list { list-style: none; margin-top: 30px; }
+        .awards-list li { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
+        .check-icon { background: var(--primary-saffron); color: var(--white); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; margin-top: 3px; }
+        .awards-img { width: 100%; height: 400px; object-fit: cover; border-radius: 12px; border: 4px solid rgba(255,255,255,0.1); }
+
+        /* Transparency */
+        .financials-grid { display: grid; grid-template-columns: 1fr; gap: 50px; align-items: start; }
+        .financial-docs { background: var(--bg-light); border-radius: 14px; padding: 28px; }
+        .reg-detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 24px; margin-top: 26px; padding-top: 22px; border-top: 1px solid #E5E2DB; }
+        .reg-detail-grid div span { display: block; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-muted); margin-bottom: 3px; }
+        .reg-detail-grid div strong { font-size: 13.5px; color: var(--primary-navy); }
+
+        /* Forms & Inputs */
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--primary-navy); margin-bottom: 8px; }
+        .form-control { width: 100%; padding: 12px 15px; border: 1px solid #D1D5DB; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 14px; background-color: #fff; transition: border-color 0.3s; }
+        .form-control:focus { border-color: var(--primary-saffron); outline: none; }
+        textarea.form-control { resize: vertical; min-height: 120px; }
+
+        /* Contact Section */
+        .contact-section { padding: 80px 0; background: var(--white); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .contact-info-box { background: var(--primary-navy); color: white; padding: 40px; border-radius: 12px; }
+        .contact-info-box h3 { color: white; margin-bottom: 20px; }
+        .contact-detail { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; }
+        .contact-icon { font-size: 20px; color: var(--primary-saffron); }
+
+        /* Modals */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center;
+            backdrop-filter: blur(3px);
         }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: var(--white); padding: 40px; border-radius: 12px; width: 90%; max-width: 550px;
+            position: relative; animation: slideIn 0.3s ease-out; max-height: 90vh; overflow-y: auto;
         }
-
-        .nav-links a {
-            font-weight: 500;
-            font-size: 15px;
-            transition: color 0.3s;
+        .modal-close {
+            position: absolute; top: 20px; right: 20px; font-size: 28px; cursor: pointer; 
+            color: var(--text-muted); border: none; background: none; line-height: 1;
         }
-
-        .nav-links a:hover {
-            color: var(--primary-saffron);
-        }
-
-        /* Hero Section */
-        .hero {
-            position: relative;
-            min-height: 85vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(rgba(28, 40, 65, 0.7), rgba(28, 40, 65, 0.8)), 
-                        url('https://images.unsplash.com/photo-1542810634-71277d95dcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
-            color: var(--white);
-        }
-
-        .hero-content {
-            max-width: 700px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            color: var(--white);
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            margin-bottom: 35px;
-            opacity: 0.9;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            margin-top: 50px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 30px;
-        }
-
-        .stat-item h3 {
-            color: var(--primary-saffron);
-            font-size: 2rem;
-            margin-bottom: 5px;
-        }
-
-        .stat-item p {
-            font-size: 0.9rem;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Vision & Quote Section */
-        .vision-section {
-            padding: 80px 0;
-            background: var(--white);
-            text-align: center;
-        }
-
-        .quote-box {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .quote-icon {
-            color: var(--primary-saffron);
-            font-size: 40px;
-            margin-bottom: 20px;
-            font-family: 'Merriweather', serif;
-        }
-
-        .quote-box blockquote {
-            font-family: 'Merriweather', serif;
-            font-size: 24px;
-            color: var(--primary-navy);
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-
-        .quote-box cite {
-            font-size: 16px;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        /* Pillars of Impact (Programs) */
-        .programs {
-            padding: 90px 0;
-            background: var(--bg-light);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-label {
-            color: var(--primary-saffron);
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 13px;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .section-title {
-            font-size: 36px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .card {
-            background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card-img {
-            height: 240px;
-            width: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        .card-content {
-            padding: 30px;
-        }
-
-        .card-tag {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .tag-edu { background: #FDEEE6; color: var(--primary-saffron); }
-        .tag-relief { background: #E9F2EC; color: var(--primary-green); }
-        .tag-award { background: #E8EAF0; color: var(--primary-navy); }
-
-        .card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        /* Recognition & Awards Section */
-        .awards-section {
-            padding: 90px 0;
-            background: var(--primary-navy);
-            color: var(--white);
-        }
-
-        .awards-section .section-title {
-            color: var(--white);
-        }
-
-        .awards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .awards-text p {
-            font-size: 16px;
-            color: #d1d5db;
-            margin-bottom: 25px;
-        }
-
-        .awards-list {
-            list-style: none;
-            margin-top: 30px;
-        }
-
-        .awards-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .check-icon {
-            background: var(--primary-saffron);
-            color: var(--white);
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            flex-shrink: 0;
-            margin-top: 3px;
-        }
-
-        .awards-img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 4px solid rgba(255,255,255,0.1);
-        }
-
-        /* Call to Action */
-        .cta-section {
-            padding: 80px 0;
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary-green), #1e5936);
-            color: var(--white);
-        }
-
-        .cta-section h2 {
-            color: var(--white);
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-
-        .cta-section p {
-            max-width: 600px;
-            margin: 0 auto 30px;
-            font-size: 16px;
-            opacity: 0.9;
-        }
+        .modal-close:hover { color: var(--primary-navy); }
+        .modal-header { text-align: center; margin-bottom: 25px; }
+        .modal-header h3 { font-size: 24px; margin-bottom: 8px; }
+        .modal-header p { font-size: 14px; color: var(--text-muted); }
+        
+        @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         /* Footer */
-        footer {
-            background: #111827;
-            color: #9CA3AF;
-            padding: 70px 0 30px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        .footer-brand .logo-text h2 {
-            color: var(--white);
-        }
-
-        .footer-brand p {
-            margin-top: 20px;
-            font-size: 14px;
-        }
-
-        .footer-links h4 {
-            color: var(--white);
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-saffron);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 13px;
-        }
+        footer { background: #111827; color: #9CA3AF; padding: 70px 0 30px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+        .footer-brand .logo-text h2 { color: var(--white); }
+        .footer-brand p { margin-top: 20px; font-size: 14px; }
+        .footer-links h4 { color: var(--white); font-size: 16px; margin-bottom: 20px; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { font-size: 14px; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--primary-saffron); }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; }
+        .footer-reg-line { font-size: 12.5px; color: #8991A4; margin-top: 15px; line-height: 1.7; }
 
         /* Responsive Design */
         @media (max-width: 992px) {
-            .grid-3 { grid-template-columns: repeat(2, 1fr); }
-            .awards-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.8rem; }
+            .awards-grid, .contact-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
+            .reg-detail-grid { grid-template-columns: 1fr; }
         }
-
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .grid-3 { grid-template-columns: 1fr; }
-            .hero-stats { flex-direction: column; gap: 20px; }
+            .top-bar { flex-direction: column; gap: 10px; padding: 12px 5%; text-align: center; }
+            .nav-toggle { display: flex; }
+            .nav-links {
+                display: none; position: absolute; top: 80px; left: 0; right: 0;
+                background: var(--white); flex-direction: column; align-items: stretch; gap: 0;
+                box-shadow: 0 12px 20px rgba(0,0,0,0.08); padding: 10px 0 18px;
+            }
+            .nav-links.mobile-open { display: flex; }
+            .nav-links a, .nav-links button { padding: 14px 6%; width: 100%; text-align: left; }
+            .nav-links .btn-primary { width: 88%; margin: 10px 6% 0; text-align: center; }
             .footer-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.2rem; }
-            .awards-img { height: 300px; }
+            .slide { height: 50vh; }
         }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        Registered Non-Profit Trust (Govt. of India) | Serving the nation with transparency and dedication
+        <span>Registered Non-Profit Trust (Govt. of India) | Serving the nation with transparency and dedication</span>
+        <a href="index-hi.html" class="lang-toggle-btn" style="text-decoration: none;">
+    <span style="font-size: 16px;">अ</span> Hindi
+        </a>
     </div>
 
     <nav>
         <div class="container nav-container">
             <a href="#" class="logo">
-                <img src="Logo_Transparent.png" alt="Embrace Bharat Foundation Logo" class="logo-img">
+                <img src="Logo_Transparent.png" alt="Embrace Bharat Foundation Logo" class="logo-img" onerror="this.style.display='none'">
                 <div class="logo-text">
                     <h2>EMBRACE BHARAT</h2>
                     <span>Foundation</span>
                 </div>
             </a>
-            <div class="nav-links">
-                <a href="#mission">Our Mission</a>
-                <a href="#programs">What We Do</a>
-                <a href="#awards">Awards & Recognition</a>
+            <button type="button" class="nav-toggle" id="navToggle" onclick="toggleMobileNav()" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="#projects">Our Impact</a>
+                <a href="#awards">Recognition</a>
+                <a href="#financials">Transparency</a>
                 <a href="#contact">Contact</a>
-                <a href="https://forms.gle/oZFDYxcDvrhwLFeS6" target="_blank" class="btn btn-primary">Donate Now</a>
+                <button class="btn btn-primary" onclick="openModal('donateModal')">Donate</button>
             </div>
         </div>
     </nav>
 
-    <section class="hero">
+    <div class="trust-strip">
         <div class="container">
-            <div class="hero-content">
-                <h1>Empowering the Future of Bharat.</h1>
-                <p>We are dedicated to uplifting underprivileged students through education and technology, while standing firmly beside our communities during times of adversity. Together, we build resilience.</p>
-                <div style="display: flex; gap: 15px;">
-                    <a href="#programs" class="btn btn-primary">Our Initiatives</a>
-                    <a href="https://forms.gle/oZFDYxcDvrhwLFeS6" target="_blank" class="btn btn-outline" style="color: white; border-color: white;">Join the Cause</a>
-                </div>
+            <div class="trust-badge"><span class="dot"></span> <strong>Trust No.</strong>&nbsp;0001185835</div>
+            <div class="trust-badge"><span class="dot"></span> <strong>NGO Darpan ID</strong>&nbsp;UP/2026/1170451</div>
+        </div>
+    </div>
 
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <h3>10,000+</h3>
-                        <p>Students Supported</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>50+</h3>
-                        <p>Relief Camps Organized</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>500+</h3>
-                        <p>Social Workers Honored</p>
-                    </div>
-                </div>
-            </div>
+    <section class="slider-section">
+        <div class="slider-container" id="mainSlider">
+            <div class="slide fade"><img src="Main Image.jpeg" alt="Embrace Bharat Foundation - 15 Impactful Projects"></div>
+            <div class="slide fade"><img src="img2.jpeg" alt="Together we can build a better Bharat"></div>
+            <div class="slide fade"><img src="img3.jpeg" alt="Embrace Bharat Foundation Objectives"></div>
+            <div class="slide fade"><img src="img4.jpeg" alt="Nari Sashaktikaran - Women Empowerment"></div>
+        </div>
+        <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+        <button class="next" onclick="plusSlides(1)">&#10095;</button>
+        <div class="slider-dots">
+            <span class="slider-dot" onclick="currentSlide(1)"></span>
+            <span class="slider-dot" onclick="currentSlide(2)"></span>
+            <span class="slider-dot" onclick="currentSlide(3)"></span>
+            <span class="slider-dot" onclick="currentSlide(4)"></span>
         </div>
     </section>
 
@@ -527,43 +350,28 @@
         </div>
     </section>
 
-    <section id="programs" class="programs">
+    <section id="projects" class="programs">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">Our Core Pillars</span>
-                <h2 class="section-title">Driving Lasting Change</h2>
+                <span class="section-label">Empowering People, Enriching Lives, Strengthening Bharat</span>
+                <h2 class="section-title">15 Impactful Projects</h2>
             </div>
-
-            <div class="grid-3">
-                <div class="card">
-                    <img src="Equipping the Youth.jpg" alt="Indian students studying together" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag tag-edu">Education & Tech</span>
-                        <h3>Equipping the Youth</h3>
-                        <p>We provide school supplies, books, study materials, and digital literacy classes to underprivileged students, ensuring they are prepared to build a bright career in the modern technological era.</p>
-                        <a href="#" style="color: var(--primary-saffron); font-weight: 600; font-size: 14px;">Learn more &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Providing relief in rural Indian village" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag tag-relief">Adversity Relief</span>
-                        <h3>Standing by the Vulnerable</h3>
-                        <p>During natural disasters, health crises, or extreme poverty, we step in to provide basic needs such as food, clean water, medical aid, and shelter to the most affected communities.</p>
-                        <a href="#" style="color: var(--primary-green); font-weight: 600; font-size: 14px;">Learn more &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img src="Honoring the Heroes.jpg" alt="Indian man being awarded and honored" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag tag-award">Recognition</span>
-                        <h3>Honoring the Heroes</h3>
-                        <p>We actively identify and celebrate grassroots social workers. By awarding them with certificates and medals, we validate their sacrifices and encourage others to join the welfare movement.</p>
-                        <a href="#" style="color: var(--primary-navy); font-weight: 600; font-size: 14px;">Learn more &rarr;</a>
-                    </div>
-                </div>
+            <div class="grid-projects">
+                <div class="project-card"><div class="project-number">1</div><h4>Talent Hunt & Scholarship Project</h4><ul><li>Quiz, Talent Hunt, Merit Test</li><li>Scholarship for deserving & needy students</li></ul></div>
+                <div class="project-card"><div class="project-number">2</div><h4>School Personality Development Program</h4><ul><li>Personality Development</li><li>Communication Skills</li><li>Leadership & Confidence Building</li></ul></div>
+                <div class="project-card"><div class="project-number">3</div><h4>Skill India – Skill Development Project</h4><ul><li>Computer, Digital Literacy, Spoken English</li><li>Tailoring, Beautician, Mehndi & more</li><li>Vocational & Employment Oriented Training</li></ul></div>
+                <div class="project-card"><div class="project-number">4</div><h4>Sashakt Nari – Women Empowerment</h4><ul><li>Vocational Training</li><li>Self-Employment & Entrepreneurship</li><li>Digital & Financial Literacy</li></ul></div>
+                <div class="project-card"><div class="project-number">5</div><h4>Youth Career & Employment Project</h4><ul><li>Career Counselling</li><li>Resume & Interview Training</li><li>Employment & Placement Support</li></ul></div>
+                <div class="project-card"><div class="project-number">6</div><h4>Digital Saksharta Abhiyan</h4><ul><li>Smartphone & Internet Training</li><li>Online Services & Safety</li><li>Digital Empowerment for All</li></ul></div>
+                <div class="project-card"><div class="project-number">7</div><h4>Beti Shiksha & Bal Vikas Project</h4><ul><li>Education Support for Girls</li><li>Life Skills & Career Guidance</li><li>Promoting Education for All</li></ul></div>
+                <div class="project-card"><div class="project-number">8</div><h4>Green Bharat – Environment Project</h4><ul><li>Tree Plantation Drives</li><li>Cleanliness Campaigns</li><li>Waste Management & Environmental Awareness</li></ul></div>
+                <div class="project-card"><div class="project-number">9</div><h4>Swasth Bharat Awareness Project</h4><ul><li>Health & Hygiene Awareness</li><li>Nutrition & Sanitation</li><li>Health Camps & Check-ups</li></ul></div>
+                <div class="project-card"><div class="project-number">10</div><h4>Jan Seva & Community Support Project</h4><ul><li>Support for Needy Families</li><li>Food Distribution & Relief Work</li><li>Community Service Activities</li></ul></div>
+                <div class="project-card"><div class="project-number">11</div><h4>Rural Development Project</h4><ul><li>Education & Skill Training</li><li>Livelihood Support</li><li>Awareness & Community Upliftment</li></ul></div>
+                <div class="project-card"><div class="project-number">12</div><h4>Animal Welfare Project</h4><ul><li>Animal Feeding Drives</li><li>Animal Rescue & Care</li><li>Animal Welfare Awareness</li></ul></div>
+                <div class="project-card"><div class="project-number">13</div><h4>Senior Citizen Support Project</h4><ul><li>Care, Support & Respect</li><li>Health Awareness & Assistance</li><li>Emotional & Social Support</li></ul></div>
+                <div class="project-card"><div class="project-number">14</div><h4>Social Awareness Campaign</h4><ul><li>Women Safety, Child Protection</li><li>Swachhata, Education, Health</li><li>Cyber Safety & Legal Awareness</li></ul></div>
+                <div class="project-card"><div class="project-number">15</div><h4>Volunteer & Social Leadership Program</h4><ul><li>Volunteer Training</li><li>Community Service</li><li>Leadership & Nation Building</li></ul></div>
             </div>
         </div>
     </section>
@@ -574,44 +382,107 @@
                 <span class="section-label" style="color: #FBBF24;">Pratibha Samman Awards</span>
                 <h2 class="section-title">Celebrating the Spirit of Selfless Service</h2>
                 <p>Social work is often a thankless job. At Embrace Bharat Foundation, we believe that recognizing those who dedicate their lives to social welfare is crucial for sustaining a compassionate society.</p>
-                <p>Every year, we host our flagship <strong>Pratibha Samman Ceremony</strong> to honor unsung heroes from rural and urban communities across the country who actively participate in uplifting their environment.</p>
                 
                 <ul class="awards-list">
-                    <li>
-                        <div class="check-icon">✓</div>
-                        <div>
-                            <strong>Certificates of Excellence</strong><br>
-                            <span style="font-size: 13px; color: #9CA3AF;">Awarded to local leaders and educators for exceptional community upliftment.</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="check-icon">✓</div>
-                        <div>
-                            <strong>The Embrace Bharat Medals</strong><br>
-                            <span style="font-size: 13px; color: #9CA3AF;">Gold and Silver medals conferred upon those who show extraordinary bravery and dedication during disaster relief.</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="check-icon">✓</div>
-                        <div>
-                            <strong>Youth Welfare Scholarships</strong><br>
-                            <span style="font-size: 13px; color: #9CA3AF;">Grants paired with certificates for young adults leading tech-based social innovations.</span>
-                        </div>
-                    </li>
+                    <li><div class="check-icon">✓</div><div><strong>Certificates of Excellence</strong><br><span style="font-size: 13px; color: #9CA3AF;">Awarded to local leaders and educators for exceptional community upliftment.</span></div></li>
+                    <li><div class="check-icon">✓</div><div><strong>The Embrace Bharat Medals</strong><br><span style="font-size: 13px; color: #9CA3AF;">Medals conferred upon those who show extraordinary bravery and dedication during disaster relief.</span></div></li>
+                    <li><div class="check-icon">✓</div><div><strong>Youth Welfare Scholarships</strong><br><span style="font-size: 13px; color: #9CA3AF;">Grants paired with certificates for young adults leading tech-based social innovations.</span></div></li>
                 </ul>
+                <button class="btn btn-primary" style="margin-top: 15px; background-color: #FBBF24; color: var(--primary-navy);" onclick="openModal('nominateModal')">Nominate a Hero</button>
             </div>
             <div class="awards-image">
-                <img src="Community members.png" alt="Community members doing community service in India" class="awards-img">
+                <img src="Community members.png" alt="Community members doing community service in India" class="awards-img" onerror="this.style.display='none'">
             </div>
         </div>
     </section>
 
-    <section class="cta-section">
+    <section id="financials" class="programs" style="background: var(--white); padding-bottom: 40px;">
         <div class="container">
-            <h2>Be the Change You Wish to See</h2>
-            <p>Whether you want to sponsor a child's technical education, help a family in distress, or nominate a local hero for our upcoming awards, your contribution makes a massive difference.</p>
-            <a href="https://forms.gle/oZFDYxcDvrhwLFeS6" target="_blank" class="btn btn-primary" style="background: var(--white); color: var(--primary-green); box-shadow: none;">Make a Donation</a>
-            <a href="https://forms.gle/oZFDYxcDvrhwLFeS6" target="_blank" class="btn btn-outline" style="border-color: var(--white); color: var(--white); margin-left: 15px;">Become a Volunteer</a>
+            <div class="section-header">
+                <span class="section-label">Accountability</span>
+                <h2 class="section-title">Institutional Transparency</h2>
+            </div>
+            <div class="financials-grid">
+                <div class="financial-docs">
+                    <h4>Registration Details</h4>
+                    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">We strictly adhere to all government guidelines to ensure complete institutional transparency.</p>
+                    <div class="reg-detail-grid">
+                        <div><span>Trust Registration No.</span><strong>0001185835</strong></div>
+                        <div><span>NGO Darpan ID</span><strong>UP/2026/1170451</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Get In Touch</span>
+                <h2 class="section-title">Contact Us</h2>
+            </div>
+            
+            <div class="contact-grid">
+                <!-- Left: Contact Info -->
+                <div class="contact-info-box">
+                    <h3>We'd love to hear from you</h3>
+                    <p style="color: #cbd5e1; margin-bottom: 30px; font-size: 15px;">Whether you have a question about our projects, want to volunteer, or simply want to say hello, our team is ready to answer all your questions.</p>
+                    
+                    <div class="contact-detail">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong style="display: block; font-size: 16px; margin-bottom: 5px;">Headquarters</strong>
+                            <span style="color: #cbd5e1; font-size: 14px;">Lakhimpur Kheri, Uttar Pradesh, India</span>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <strong style="display: block; font-size: 16px; margin-bottom: 5px;">Email Us</strong>
+                            <a href="mailto:embracebharatfoundation@gmail.com" style="color: #cbd5e1; font-size: 14px; transition: color 0.3s;">embracebharatfoundation@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <strong style="display: block; font-size: 16px; margin-bottom: 5px;">Call Us</strong>
+                            <span style="color: #cbd5e1; font-size: 14px;">+91 92141 23795 <br> +91 63068 63962</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Contact Form -->
+                <div class="contact-form-container">
+                    <form action="https://formsubmit.co/embracebharatfoundation@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="New Contact Form Submission">
+                        <input type="hidden" name="_captcha" value="false">
+                        
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" name="Name" class="form-control" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" name="Email" class="form-control" required placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Purpose of Contact</label>
+                            <select name="Purpose" class="form-control" required>
+                                <option value="" disabled selected>Select an option...</option>
+                                <option value="General Inquiry">General Inquiry</option>
+                                <option value="Volunteer Registration">Volunteer Registration</option>
+                                <option value="Partnership / CSR">Partnership / CSR</option>
+                                <option value="Media & PR">Media & PR</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Your Message</label>
+                            <textarea name="Message" class="form-control" required placeholder="How can we help you?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -619,47 +490,194 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <img src="Logo_Professional Printing.png" alt="Embrace Bharat Foundation Logo" class="logo-img" style="max-height: 300px;">
                     <div class="logo-text" style="margin-top: 5px;">
                         <h2>Embrace Bharat Foundation</h2>
                     </div>
                     <p>Working at the intersection of education, skill development, and cultural recognition to build a stronger, fairer Bharat - one person at a time.</p>
                 </div>
-                
+
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#programs">Our Programs</a></li>
+                        <li><a href="#mission">About Us</a></li>
+                        <li><a href="#projects">Our Impact (15 Projects)</a></li>
                         <li><a href="#awards">Awards Gallery</a></li>
-                        <li><a href="#financials">Financial Transparency</a></li>
+                        <li><a href="#financials">Transparency</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-links">
-                    <h4>Get Involved</h4>
+                    <h4>Actions</h4>
                     <ul>
-                        <li><a href="https://forms.gle/oZFDYxcDvrhwLFeS6" target="_blank">Donate</a></li>
-                        <li><a href="https://forms.gle/oZFDYxcDvrhwLFeS6" target="_blank">Volunteer with Us</a></li>
-                        <li><a href="https://forms.gle/oZFDYxcDvrhwLFeS6" target="_blank">Nominate a Hero</a></li>
-                        <li><a href="#partner">Corporate Partnerships</a></li>
-                    </ul>
-                </div>
-
-                <div id="contact" class="footer-links">
-                    <h4>Contact Us</h4>
-                    <ul>
-                        <li><a href="mailto:embracebharatfoundation@gmail.com">embracebharatfoundation@gmail.com</a></li>
-                        <li><a href="#">Delhi, India</a></li>
+                        <li><a href="javascript:void(0);" onclick="openModal('donateModal')">Make a Donation</a></li>
+                        <li><a href="javascript:void(0);" onclick="openModal('nominateModal')">Nominate a Hero</a></li>
+                        <li><a href="#contact">Contact Support</a></li>
                     </ul>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p>&copy; 2026 Embrace Bharat Foundation. All Rights Reserved. | Registered under the Indian Trusts Act, 1882.</p>
+                <p class="footer-reg-line">Trust Reg. No. 0001185835 &nbsp;|&nbsp; NGO Darpan ID: UP/2026/1170451</p>
             </div>
         </div>
     </footer>
 
+    <!-- MODALS SECTION -->
+    <div class="modal-overlay" id="donateModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('donateModal')">&times;</button>
+            <div class="modal-header">
+                <h3 style="font-family: 'Merriweather', serif; color: var(--primary-navy);">Pledge Your Support</h3>
+                <p>Fill out the form below and our team will contact you securely for processing your donation.</p>
+            </div>
+            <form action="https://formsubmit.co/embracebharatfoundation@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New Donation Pledge">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" name="Donor_Name" class="form-control" required placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" name="Donor_Email" class="form-control" required placeholder="Your email address">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" name="Donor_Phone" class="form-control" required placeholder="Your mobile number">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Select Cause to Support</label>
+                    <select name="Donation_Cause" class="form-control" required>
+                        <option value="General Foundation Fund" selected>General Foundation Fund (Area of greatest need)</option>
+                        <option value="Education & Scholarships">Education & Scholarships</option>
+                        <option value="Women Empowerment">Women Empowerment</option>
+                        <option value="Animal Welfare">Animal Welfare</option>
+                        <option value="Rural Development">Rural Development</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Pledged Amount (INR)</label>
+                    <input type="number" name="Pledge_Amount" class="form-control" required placeholder="e.g. 5000">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Pledge</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="nominateModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('nominateModal')">&times;</button>
+            <div class="modal-header">
+                <h3 style="font-family: 'Merriweather', serif; color: var(--primary-navy);">Nominate a Hero</h3>
+                <p>Help us recognize those who silently dedicate their lives to the welfare of others.</p>
+            </div>
+            <form action="https://formsubmit.co/embracebharatfoundation@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New Pratibha Samman Nomination">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <div class="form-group">
+                    <label class="form-label">Your Name (Nominator)</label>
+                    <input type="text" name="Nominator_Name" class="form-control" required placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Your Email</label>
+                    <input type="email" name="Nominator_Email" class="form-control" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nominee's Full Name</label>
+                    <input type="text" name="Nominee_Name" class="form-control" required placeholder="Name of the person you are nominating">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Award Category</label>
+                    <select name="Award_Category" class="form-control" required>
+                        <option value="" disabled selected>Select an award...</option>
+                        <option value="Certificate of Excellence">Certificate of Excellence (Local leaders/educators)</option>
+                        <option value="The Embrace Bharat Medal">The Embrace Bharat Medal (Bravery/Disaster Relief)</option>
+                        <option value="Youth Welfare Scholarship">Youth Welfare Scholarship (Young Innovators)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Reason for Nomination</label>
+                    <textarea name="Reason" class="form-control" required placeholder="Describe their impact and why they deserve this recognition..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Nomination</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        
+
+        // Slider Logic
+        let slideIndex = 1;
+        let slideTimer;
+
+        showSlides(slideIndex);
+        
+        function plusSlides(n) {
+            clearInterval(slideTimer);
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            clearInterval(slideTimer);
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("slider-dot");
+            
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex-1].style.display = "flex";  
+            dots[slideIndex-1].className += " active";
+            
+            slideTimer = setTimeout(() => { plusSlides(1); }, 4000); 
+        }
+
+        // Mobile Nav Logic
+        function toggleMobileNav() {
+            document.getElementById('navLinks').classList.toggle('mobile-open');
+            document.getElementById('navToggle').classList.toggle('open');
+        }
+
+        document.getElementById('navLinks').querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                document.getElementById('navLinks').classList.remove('mobile-open');
+                document.getElementById('navToggle').classList.remove('open');
+            });
+        });
+
+        // Modal Logic
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
 </body>
 </html>
