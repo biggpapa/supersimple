@@ -455,10 +455,9 @@
 
                 <!-- Right: Contact Form -->
                 <div class="contact-form-container">
-                    <form action="https://formsubmit.co/96ba88cb049a7351e70b7c03362b48d0" method="POST">
+                    <form id="contactForm" action="https://formsubmit.co/96ba88cb049a7351e70b7c03362b48d0" method="POST" onsubmit="submitForm(event, this.id)">
                         <input type="hidden" name="_subject" value="New Contact Form Submission (Hindi)">
                         <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_next" value="https://yourwebsite.com/thanks.html">
                         
                         <div class="form-group">
                             <label class="form-label">पूरा नाम (Full Name)</label>
@@ -534,7 +533,7 @@
                 <h3 style="font-family: 'Merriweather', serif; color: var(--primary-navy);">अपना समर्थन दें (Donate)</h3>
                 <p>नीचे दिया गया फॉर्म भरें और हमारी टीम आपके दान को सुरक्षित रूप से प्रोसेस करने के लिए आपसे संपर्क करेगी।</p>
             </div>
-            <form action="https://formsubmit.co/96ba88cb049a7351e70b7c03362b48d0" method="POST">
+            <form id="donateForm" action="https://formsubmit.co/96ba88cb049a7351e70b7c03362b48d0" method="POST" onsubmit="submitForm(event, this.id)">
                 <input type="hidden" name="_subject" value="New Donation Pledge (Hindi)">
                 <input type="hidden" name="_captcha" value="false">
                 
@@ -576,7 +575,7 @@
                 <h3 style="font-family: 'Merriweather', serif; color: var(--primary-navy);">हीरो को नामांकित करें</h3>
                 <p>उन लोगों को पहचानने में हमारी मदद करें जो चुपचाप दूसरों के कल्याण के लिए अपना जीवन समर्पित करते हैं।</p>
             </div>
-            <form action="https://formsubmit.co/96ba88cb049a7351e70b7c03362b48d0" method="POST">
+            <form id="nominateForm" action="https://formsubmit.co/96ba88cb049a7351e70b7c03362b48d0" method="POST" onsubmit="submitForm(event, this.id)">
                 <input type="hidden" name="_subject" value="New Pratibha Samman Nomination (Hindi)">
                 <input type="hidden" name="_captcha" value="false">
                 
@@ -678,6 +677,48 @@
                 event.target.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
+        }
+
+        // Background Form Submission Logic (No Redirects - Hindi Version)
+        function submitForm(event, formId) {
+            event.preventDefault(); 
+            
+            const form = document.getElementById(formId);
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            
+            submitBtn.innerText = "सबमिट हो रहा है...";
+            submitBtn.disabled = true;
+
+            const ajaxUrl = form.action.replace("formsubmit.co/", "formsubmit.co/ajax/");
+
+            fetch(ajaxUrl, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json' 
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("आपका विवरण सफलतापूर्वक सबमिट कर दिया गया है। हमारी टीम 1-2 दिनों के भीतर इस पर कार्रवाई करेगी।");
+                form.reset(); 
+                
+                const modal = form.closest('.modal-overlay');
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert("कुछ गलत हो गया। कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें।");
+            })
+            .finally(() => {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            });
         }
     </script>
 </body>
